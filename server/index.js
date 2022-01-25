@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import cors from "cors";
 import router from "./routes/routes.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -14,13 +16,10 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors({ origin: true }));
 
 mongoose
-  .connect(
-    "mongodb+srv://lama:lamagharib@cluster0.jb9hk.mongodb.net/cooking?retryWrites=true&w=majority",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  .connect(process.env.CONNECTION_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() =>
     app.listen(PORT, () =>
       console.log(`server running on port ${PORT} and database is connected `)
