@@ -8,12 +8,12 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const connectionUrl = process.env.CONNECTION_URL;
 app.use(express.json());
-app.use("/api", router);
-app.use(bodyParser.json({ limit: "30mb", extended: true }));
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+
+// app.use(bodyParser.json({ limit: "30mb", extended: true }));
+// app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors({ origin: true }));
+app.use("/api", router);
 
 mongoose
   .connect(process.env.CONNECTION_URL, {

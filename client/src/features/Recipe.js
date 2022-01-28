@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-export const getRecipes = createAsyncThunk("getUsers", async () => {
+export const getRecipes = createAsyncThunk("getRecipes", async () => {
   try {
     const result = await fetch("/api");
     console.log(await result.json());
@@ -18,14 +18,12 @@ export const addRecipe = createAsyncThunk(
         Accept: "application/json",
         "content-type": "application/json",
       },
-      body: JSON.stringify({
-        recipeName,
-        description,
-        creator,
-      }),
+      body: JSON.stringify({ recipe: { recipeName, description, creator } }),
     };
     try {
-      const data = await (await fetch("/api/newRecipe", config)).json();
+      const data = await (
+        await fetch("http://localhost:5000/api/newRecipe", config)
+      ).json();
       console.log(data);
       return data;
     } catch (error) {
